@@ -7,4 +7,5 @@ provides:
     interface: http
 description: |
   This charm is for educational purpose to help charmers learn about juju hooks.
-tags: application_development
+tags: 
+  - application_development
