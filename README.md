@@ -8,6 +8,6 @@ cd /tmp; mkdir armantask; cd armantask; git clone https://github.com/Amir-Arman/
 juju deploy ./lb-nginx
 juju deploy -n2 ./webapp
 juju relate webapp lb-nginx
-juju run --unit webapp/2 "sed -i 's/salam/SALAM/' hooks/webserver.py"
 juju expose lb-nginx
+juju run --unit webapp/2 "sed -i 's/salam/SALAM/' hooks/webserver.py && reboot"
 ```
