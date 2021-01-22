@@ -1,0 +1,4 @@
+#!/bin/bash
+set -eux
+python3 hooks/webserver.py &
+status-set active

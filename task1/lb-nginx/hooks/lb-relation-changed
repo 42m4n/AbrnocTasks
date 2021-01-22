@@ -1,0 +1,25 @@
+#!/bin/bash
+ids=`relation-ids lb`
+relation-list -r $ids > /tmp/list
+awk '{print "relation-get -r `relation-ids lb` private-address", $0}' /tmp/list > /tmp/ips
+chmod +x /tmp/ips
+/tmp/ips > nginx.conf
+sed -i 's/.*/server\ &\:8080;/' nginx.conf
+cat >> nginx.conf << EOF
+    }
+
+    server {
+     listen 80;
+        location / {
+            proxy_pass http://api;
+        }
+    }
+}
+
+EOF
+
+echo -e "events {}\nhttp {\n\tupstream api {\n$(cat nginx.conf)" > nginx.conf
+
+mv nginx.conf /etc/nginx/nginx.conf
+
+systemctl restart nginx

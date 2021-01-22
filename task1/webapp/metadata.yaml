@@ -1,0 +1,12 @@
+name: webapp
+summary: This charm is a task for abrnoc.
+maintainer: Arman Beykian <arman.beykian@gmail.com>
+series: ["bionic", "disco"]
+provides:
+  website:
+    interface: http
+description: |
+  This charm is for educational purpose to help charmers learn about juju hooks.
+tags:
+  - misc
+  - application_development
