@@ -1,15 +1,12 @@
 name: lb-nginx
 summary: This charm is so small. Its tiny.
-maintainer: Erik Lonroth <erik.lonroth@gmail.com>
+maintainer: Arman Beykian <arman.beykian@gmail.com>
 series: ["bionic", "disco"]
 requires:
   lb:
     interface: http
-extra-bindings:
-  another:
 description: |
   This charm is for educational purpose to help charmers learn about juju hooks.
 tags:
   - misc
   - application_development
-subordinate: false
