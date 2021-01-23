@@ -1,0 +1,14 @@
+#!/bin/bash
+ids=`relation-ids lb`
+unit=$(relation-list -r $ids)
+for i in $unit
+do
+	ip=$(relation-get -r $ids private-address $i)
+	wget -q --spider --tries=3 --timeout=3 http://$ip:8080
+	 	if [[ $? -eq 0 ]]; then
+			echo "the web server on unit \"$i\" with \"$ip\" private ip is ok."
+		else
+			echo "it seems something wrong with unit $i "
+		fi
+done
+echo "all done. if there are some other units that aren't here, you should check those."
