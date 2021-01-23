@@ -4,7 +4,7 @@ for understanding the task, read quastion.md .
 
 # How to deploy
 ```
-mkdir /tmp/task; cd /tmp/task; git clone https://github.com/Amir-Arman/AbrnocTasks.git; cd AbrnocTasks
+mkdir /tmp/task; cd /tmp/task; git clone https://github.com/Amir-Arman/AbrnocTasks.git ; cd AbrnocTasks
 juju deploy ./lb-nginx
 juju deploy -n2 ./webapp
 juju relate webapp lb-nginx
