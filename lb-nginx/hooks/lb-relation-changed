@@ -1,9 +1,12 @@
 #!/bin/bash
 ids=`relation-ids lb`
-relation-list -r $ids > /tmp/list
-awk '{print "relation-get -r `relation-ids lb` private-address", $0}' /tmp/list > /tmp/ips
-chmod +x /tmp/ips
-/tmp/ips > nginx.conf
+unit=$(relation-list -r $ids) 
+cat /dev/null > nginx.conf
+for i in $unit
+do
+	ip=$(relation-get -r $ids private-address $i)
+	echo $ip >> nginx.conf
+done
 sed -i 's/.*/server\ &\:8080;/' nginx.conf
 cat >> nginx.conf << EOF
     }
@@ -15,10 +18,13 @@ cat >> nginx.conf << EOF
         }
     }
 }
-
 EOF
 echo -e "events {}\nhttp {\n\tupstream api {\n$(cat nginx.conf)" > nginx.conf
-mv nginx.conf /etc/nginx/nginx.conf
-systemctl restart nginx
-open-port 80
-status-set active
+
+nginx -t -c $JUJU_CHARM_DIR/nginx.conf
+if [[ $? == 0 ]]
+then
+	mv nginx.conf /etc/nginx.conf
+	systemctl restart nginx
+	open-port 80
+fi
