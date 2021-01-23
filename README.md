@@ -9,5 +9,9 @@ juju deploy ./lb-nginx
 juju deploy -n2 ./webapp
 juju relate webapp lb-nginx
 juju expose lb-nginx
-juju run --unit webapp/2 "sed -i 's/salam/SALAM/' hooks/webserver.py && reboot"
+juju run --unit webapp/1 "sed -i 's/salam/SALAM/' hooks/webserver.py && reboot" # pay attention to the unit number
+```
+# How to confirm working of webserver units
+```
+juju run --unit lb-nginx/0 ./backend-tester # pay attention to the unit number 
 ```
