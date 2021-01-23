@@ -21,3 +21,4 @@ echo -e "events {}\nhttp {\n\tupstream api {\n$(cat nginx.conf)" > nginx.conf
 mv nginx.conf /etc/nginx/nginx.conf
 systemctl restart nginx
 open-port 80
+status-set active
